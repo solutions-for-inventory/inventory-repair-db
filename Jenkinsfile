@@ -7,18 +7,11 @@ pipeline {
         stage('Deploy Data Base') {
             steps {
                 echo 'Deploying....'
-//                script {
-//                    docker.image("flyway/flyway:7.2.1 migrate ")
-//                    .run( ' --rm -v $PWD/sql:/flyway/sql '
-//                        + '-v $PWD/conf:/flyway/conf '
-//                        + '-v $PWD/jars:/flyway/jars '
-//                    )
- //               }
-                agent {
-                        docker {
-                            image 'flyway/flyway:7.2.1'
-                            args '-v $PWD/sql:/flyway/sql -v $PWD/conf:/flyway/conf -v $PWD/jars:/flyway/jars'
-                        }
+                script {
+                    docker.image("flyway/flyway:7.2.1")
+                    .withRun( '-v $PWD/sql:/flyway/sql -v $PWD/conf:/flyway/conf -v $PWD/jars:/flyway/jars') { c ->
+                        sh 'migrate'
+                    }
                 }
             }
         }
