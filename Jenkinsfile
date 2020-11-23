@@ -9,10 +9,10 @@ pipeline {
                 echo 'Deploying....'
                 script {
                     docker.image("flyway/flyway")
-                    .run('--rm migrate'
-                        + '-v $PWD/sql:/flyway/sql '
+                    .run( '-v $PWD/sql:/flyway/sql '
                         + '-v $PWD/conf:/flyway/conf '
                         + '-v $PWD/jars:/flyway/jars '
+                        + 'migrate --rm'
                     )
                 }
             }
