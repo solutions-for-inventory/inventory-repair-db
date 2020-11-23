@@ -8,7 +8,7 @@ pipeline {
             steps {
                 echo 'Deploying....'
                 script {
-                    docker.image("flyway/flyway:7.2.1 migrate")
+                    docker.image("flyway/flyway:7.2.1 migrate --rm")
                     .withRun( '-v $PWD/sql:/flyway/sql -v $PWD/conf:/flyway/conf -v $PWD/jars:/flyway/jars') { c ->
                         sh 'ls'
                     }
