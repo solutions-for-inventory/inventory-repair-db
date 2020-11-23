@@ -9,7 +9,7 @@ pipeline {
                 echo 'Deploying....'
                 script {
                     docker.image("flyway/flyway:7.2.1 migrate ")
-                    .run( '-v $PWD/sql:/flyway/sql '
+                    .run( ' --rm -v $PWD/sql:/flyway/sql '
                         + '-v $PWD/conf:/flyway/conf '
                         + '-v $PWD/jars:/flyway/jars '
                     )
