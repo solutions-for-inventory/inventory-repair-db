@@ -1,5 +1,23 @@
-
 CREATE TYPE client_auth_method AS ENUM ('client_secret_post', 'client_secret_basic', 'client_secret_jwt', 'private_key_jwt', 'none');
+
+create sequence t_org_unit_org_unit_id_seq;
+create sequence t_org_user_scope_org_user_scope_id_seq;
+create sequence t_user_user_id_seq;
+create sequence t_role_role_id_seq;
+create sequence t_privilege_privilege_id_seq;
+create sequence t_user_role_user_role_id_seq;
+create sequence t_role_privilege_role_privilege_id_seq;
+create sequence t_person_person_id_seq;
+create sequence t_address_address_id_seq;
+create sequence t_contact_info_contact_info_id_seq;
+create sequence t_category_category_id_seq;
+create sequence t_item_item_id_seq;
+create sequence t_inventory_inventory_id_seq;
+create sequence t_unit_unit_id_seq;
+create sequence t_inventory_item_inventory_item_id_seq;
+create sequence t_inventory_item_order_inventory_item_order_id_seq;
+create sequence t_order_order_id_seq;
+create sequence t_supplier_supplier_id_seq;
 
 CREATE TABLE oauth2_client (
     id text PRIMARY KEY,
@@ -241,21 +259,4 @@ create table t_supplier (
     modified_date timestamp with time zone
 );
 
-create sequence t_org_unit_org_unit_id_seq;
-create sequence t_org_user_scope_org_user_scope_id_seq;
-create sequence t_user_user_id_seq;
-create sequence t_role_role_id_seq;
-create sequence t_privilege_privilege_id_seq;
-create sequence t_user_role_user_role_id_seq;
-create sequence t_role_privilege_role_privilege_id_seq;
-create sequence t_person_person_id_seq;
-create sequence t_address_address_id_seq;
-create sequence t_contact_info_contact_info_id_seq;
-create sequence t_category_category_id_seq;
-create sequence t_item_item_id_seq;
-create sequence t_inventory_inventory_id_seq;
-create sequence t_unit_unit_id_seq;
-create sequence t_inventory_item_inventory_item_id_seq;
-create sequence t_inventory_item_order_inventory_item_order_id_seq;
-create sequence t_order_order_id_seq;
-create sequence t_supplier_supplier_id_seq;
+
