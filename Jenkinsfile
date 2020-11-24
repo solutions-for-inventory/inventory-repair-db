@@ -7,15 +7,7 @@ pipeline {
         stage('Deploy Data Base') {
             steps {
                 echo 'Deploying....'
-                script {
-                    docker.image("flyway/flyway:7.2.1").inside {
-                      sh 'make test'
-                    }
-//                    .run(' -v $PWD/sql:/flyway/sql'
-//                       + ' -v $PWD/conf:/flyway/conf'
-//                      + ' -v $PWD/jars:/flyway/jars'
-//                       )
-                }
+                sh 'docker run --rm -v $PWD/sql:/flyway/sql -v $PWD/conf:/flyway/conf -v $PWD/jars:/flyway/jars flyway/flyway:7.2.1 migrate'
             }
         }
     }
