@@ -72,7 +72,6 @@ INSERT INTO t_user ( user_id
                    , locale
                    , expiration
                    , new_password_required
-                   , person_id
                    , created_date
                    , modified_date)
 VALUES (currval('t_person_person_id_seq')
@@ -83,7 +82,6 @@ VALUES (currval('t_person_person_id_seq')
         'es_BO',
         false,
         false,
-        currval('t_person_person_id_seq'),
         current_timestamp,
         null)
 ON CONFLICT DO NOTHING;
