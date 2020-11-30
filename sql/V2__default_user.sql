@@ -64,7 +64,8 @@ VALUES ( 'Admin'
        , null)
 ON CONFLICT DO NOTHING;
 
-INSERT INTO t_user ( username
+INSERT INTO t_user ( user_id
+                   , username
                    , email
                    , password
                    , status
@@ -74,7 +75,8 @@ INSERT INTO t_user ( username
                    , person_id
                    , created_date
                    , modified_date)
-VALUES ('admin',
+VALUES (currval('t_person_person_id_seq')
+        'admin',
         'admin@dummy.com',
         '$2b$06$nyXH6ETvP3PjcJUbwXLTNuJd6.yS21ovKMNQ9/Z.ZR3w1qLKIlNuC',
         'ACTIVE',

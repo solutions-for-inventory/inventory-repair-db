@@ -7,8 +7,8 @@ pipeline {
         stage ('Create Data Base') {
                 when {
                     expression {
-                        DATA_CONTAINER = sh(returnStdout: true, script: 'docker ps -aqf ancestor=inventory-repair-db:1.0').trim()
-                        return !DATA_CONTAINER
+                        DATABASE_CONTAINER = sh(returnStdout: true, script: 'docker ps -aqf ancestor=inventory-repair-db:1.0').trim()
+                        return !DATABASE_CONTAINER
                     }
                 }
                 steps {
