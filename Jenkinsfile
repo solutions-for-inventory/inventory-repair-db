@@ -13,7 +13,7 @@ pipeline {
                 }
                 steps {
                     echo 'Creating Data Base'
-                    sh 'docker run -it --net=host -p 5432:5432 -d inventory-repair-db:1.0'
+                    sh 'docker run -it -d --net=host -p 5432:5432 -d inventory-repair-db:1.0'
                 }
         }
         stage('Deploy Data Base') {
