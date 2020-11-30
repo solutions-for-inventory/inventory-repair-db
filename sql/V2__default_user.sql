@@ -74,7 +74,7 @@ INSERT INTO t_user ( user_id
                    , new_password_required
                    , created_date
                    , modified_date)
-VALUES (currval('t_person_person_id_seq')
+VALUES (currval('t_person_person_id_seq'),
         'admin',
         'admin@dummy.com',
         '$2b$06$nyXH6ETvP3PjcJUbwXLTNuJd6.yS21ovKMNQ9/Z.ZR3w1qLKIlNuC',

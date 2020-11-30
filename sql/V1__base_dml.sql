@@ -2,7 +2,6 @@ CREATE TYPE client_auth_method AS ENUM ('client_secret_post', 'client_secret_bas
 
 create sequence t_org_unit_org_unit_id_seq;
 create sequence t_org_user_scope_org_user_scope_id_seq;
-create sequence t_user_user_id_seq;
 create sequence t_role_role_id_seq;
 create sequence t_privilege_privilege_id_seq;
 create sequence t_user_role_user_role_id_seq;
