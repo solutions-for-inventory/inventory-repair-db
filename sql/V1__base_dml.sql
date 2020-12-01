@@ -304,7 +304,7 @@ create table t_sale_detail (
     price                   double precision                                not null,
     discount                double precision                                not null,
     part_id                 bigint                                          not null constraint t_sale_detail_part_id_fkey references t_part,
-    sale_id                 bigint                                          not null constraint t_sale_detail_sale_id_fkey references t_order,
+    sale_id                 bigint                                          not null constraint t_sale_detail_sale_id_fkey references t_sale,
     created_date            timestamp with time zone                        not null,
     modified_date           timestamp with time zone
 );
