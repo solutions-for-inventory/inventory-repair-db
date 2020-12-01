@@ -132,6 +132,15 @@ create table t_customer (
     modified_date         timestamp with time zone
 );
 
+create table t_supplier (
+                            supplier_id           bigint not null constraint t_supplier_pkey primary key constraint t_supplier_person_id_fkey references t_person,
+                            name          varchar                                                        not null,
+                            webpage       varchar                                                        not null,
+                            org_unit_id   bigint                                                         not null constraint t_supplier_org_unit_id_fkey references t_org_unit,
+                            created_date  timestamp with time zone                                       not null,
+                            modified_date timestamp with time zone
+);
+
 create table t_org_user_scope (
     org_user_scope_id bigint default nextval('t_org_user_scope_org_user_scope_id_seq'::regclass) not null constraint t_org_user_scope_pkey primary key,
     user_id           bigint    not null constraint t_org_user_scope_user_id_fkey references t_user,
@@ -224,6 +233,21 @@ create table t_inventory_part (
     modified_date     timestamp with time zone
 );
 
+create table t_order (
+                         order_id            bigint default nextval('t_order_order_id_seq'::regclass) not null constraint t_order_pkey primary key,
+                         discount            double precision                                         not null,
+                         order_date          timestamp with time zone                                 not null,
+                         delivered_lead_time timestamp with time zone                                 not null,
+                         status              varchar                                                  not null,
+                         notes               varchar                                                  not null,
+                         inventory_id        bigint                                                   not null constraint t_order_inventory_id_fkey references t_inventory,
+                         supplier_id         bigint                                                   not null constraint t_order_supplier_id_fkey references t_supplier,
+                         emitter_id          bigint                                                   not null constraint t_order_emitter_id_fkey references t_user,
+                         org_unit_id         bigint                                                   not null constraint t_order_org_unit_id_fkey references t_org_unit,
+                         created_date        timestamp with time zone                                 not null,
+                         modified_date       timestamp with time zone
+);
+
 create table t_inventory_part_order (
     inventory_part_order_id bigint default nextval('t_inventory_part_order_inventory_part_order_id_seq'::regclass) not null constraint t_inventory_part_order_pkey primary key,
     quantity                bigint                                          not null,
@@ -232,33 +256,10 @@ create table t_inventory_part_order (
     sub_total_price         double precision                                not null,
     notes                   varchar                                         not null,
     inventory_part_id       bigint                                          not null constraint t_inventory_part_order_inventory_part_id_fkey references t_inventory_part,
-    oder_id                 bigint                                          not null constraint t_inventory_part_order_order_id_fkey references t_order,
+    order_id                 bigint                                          not null constraint t_inventory_part_order_order_id_fkey references t_order,
     created_date            timestamp with time zone                        not null,
     modified_date           timestamp with time zone
 );
 
-create table t_order (
-    order_id            bigint default nextval('t_order_order_id_seq'::regclass) not null constraint t_order_pkey primary key,
-    discount            double precision                                         not null,
-    order_date          timestamp with time zone                                 not null,
-    delivered_lead_time timestamp with time zone                                 not null,
-    status              varchar                                                  not null,
-    notes               varchar                                                  not null,
-    inventory_id        bigint                                                   not null constraint t_order_inventory_id_fkey references t_inventory,
-    supplier_id         bigint                                                   not null constraint t_order_supplier_id_fkey references t_supplier,
-    emitter_id          bigint                                                   not null constraint t_order_emitter_id_fkey references t_user,
-    org_unit_id         bigint                                                   not null constraint t_order_org_unit_id_fkey references t_org_unit,
-    created_date        timestamp with time zone                                 not null,
-    modified_date       timestamp with time zone
-);
-
-create table t_supplier (
-    supplier_id           bigint not null constraint t_supplier_pkey primary key constraint t_supplier_person_id_fkey references t_person,
-    name          varchar                                                        not null,
-    webpage       varchar                                                        not null,
-    org_unit_id   bigint                                                         not null constraint t_supplier_org_unit_id_fkey references t_org_unit,
-    created_date  timestamp with time zone                                       not null,
-    modified_date timestamp with time zone
-);
 
 
