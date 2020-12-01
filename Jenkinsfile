@@ -13,8 +13,7 @@ pipeline {
                 }
                 steps {
                     echo 'Creating Data Base'
-                    databaseContainerId = sh(returnStdout: true, script: 'docker run -d -it -p 5432:5432 inventory-repair-db:1.0').trim()
-                    sh '( docker logs -f ' + databaseContainerId +' | grep -m2 "ready to accept"'
+                    sh '( docker logs -f ' + sh(returnStdout: true, script: 'docker run -d -it -p 5432:5432 inventory-repair-db:1.0').trim() + ' | grep -m2 "ready to accept"'
                 }
         }
         stage('Deploy Data Base') {
