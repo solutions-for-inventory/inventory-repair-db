@@ -16,7 +16,6 @@ create sequence t_unit_unit_id_seq;
 create sequence t_inventory_part_inventory_part_id_seq;
 create sequence t_inventory_part_order_inventory_part_order_id_seq;
 create sequence t_order_order_id_seq;
-create sequence t_supplier_supplier_id_seq;
 
 CREATE TABLE oauth2_client (
     id text PRIMARY KEY,
@@ -178,7 +177,7 @@ create table t_inventory (
     description           varchar                                                          not null,
     status                varchar                                                          not null,
     allow_negative_stocks boolean                                                          not null,
-    org_unit_id           bigint                                                           not null,
+    org_unit_id           bigint                                                           not null constraint t_inventory_org_unit_id_fkey references t_org_unit,
     created_date          timestamp with time zone                                         not null,
     modified_date         timestamp with time zone
 );
@@ -193,12 +192,11 @@ create table t_unit (
 
 create table t_part (
     part_id       bigint default nextval('t_part_part_id_seq'::regclass) not null constraint t_part_pkey primary key,
-    code          varchar                                                not null,
+    part_number   varchar,
     name          varchar                                                not null,
     default_price double precision                                       not null,
     description   varchar,
     images        varchar                                                not null,
-    part_number   varchar,
     manufacturer  varchar,
     model         varchar,
     notes         varchar,
@@ -212,6 +210,7 @@ create table t_part (
 
 create table t_inventory_part (
     inventory_part_id bigint default nextval('t_inventory_part_inventory_part_id_seq'::regclass) not null constraint t_inventory_part_pkey primary key,
+    code              varchar                                                                    not null,
     status            varchar                                                                    not null,
     level             bigint                                                                     not null,
     max_level_allowed bigint                                                                     not null,
@@ -219,8 +218,8 @@ create table t_inventory_part (
     price             double precision                                                           not null,
     location          varchar                                                                    not null,
     date_expiry       timestamp with time zone,
-    part_id           bigint                                                                     not null,
-    inventory_id      bigint                                                                     not null,
+    part_id           bigint                                                                     not null constraint t_inventory_part_part_id_fkey references t_part,
+    inventory_id      bigint                                                                     not null constraint t_inventory_part_inventory_id_fkey references t_inventory,
     created_date      timestamp with time zone                                                   not null,
     modified_date     timestamp with time zone
 );
@@ -232,8 +231,8 @@ create table t_inventory_part_order (
     discount                double precision                                not null,
     sub_total_price         double precision                                not null,
     notes                   varchar                                         not null,
-    inventory_part_id       bigint                                          not null,
-    oder_id                 bigint                                          not null,
+    inventory_part_id       bigint                                          not null constraint t_inventory_part_order_inventory_part_id_fkey references t_inventory_part,
+    oder_id                 bigint                                          not null constraint t_inventory_part_order_order_id_fkey references t_order,
     created_date            timestamp with time zone                        not null,
     modified_date           timestamp with time zone
 );
@@ -245,20 +244,19 @@ create table t_order (
     delivered_lead_time timestamp with time zone                                 not null,
     status              varchar                                                  not null,
     notes               varchar                                                  not null,
-    inventory_id        bigint                                                   not null,
-    supplier_id         bigint                                                   not null,
-    emitter_id          bigint                                                   not null,
-    org_unit_id         bigint                                                   not null,
+    inventory_id        bigint                                                   not null constraint t_order_inventory_id_fkey references t_inventory,
+    supplier_id         bigint                                                   not null constraint t_order_supplier_id_fkey references t_supplier,
+    emitter_id          bigint                                                   not null constraint t_order_emitter_id_fkey references t_user,
+    org_unit_id         bigint                                                   not null constraint t_order_org_unit_id_fkey references t_org_unit,
     created_date        timestamp with time zone                                 not null,
     modified_date       timestamp with time zone
 );
 
 create table t_supplier (
-    supplier_id   bigint default nextval('t_supplier_supplier_id_seq'::regclass) not null constraint t_supplier_pkey primary key,
+    supplier_id           bigint not null constraint t_supplier_pkey primary key constraint t_supplier_person_id_fkey references t_person,
     name          varchar                                                        not null,
     webpage       varchar                                                        not null,
-    contact_id    bigint                                                         not null,
-    org_unit_id   bigint                                                         not null,
+    org_unit_id   bigint                                                         not null constraint t_supplier_org_unit_id_fkey references t_org_unit,
     created_date  timestamp with time zone                                       not null,
     modified_date timestamp with time zone
 );
