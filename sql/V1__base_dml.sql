@@ -201,7 +201,6 @@ create table t_part (
     part_number   varchar,
     manufacturer  varchar,
     model         varchar,
-    part_type     varchar                                                not null,
     notes         varchar,
     status        varchar                                                not null,
     part_category_id   bigint constraint t_part_part_category_id_fkey references t_part_category,
