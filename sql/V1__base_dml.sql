@@ -127,7 +127,7 @@ create table t_privilege (
 );
 
 create table t_user (
-    user_id               bigint not null constraint t_user_pkey primary key constraint t_user_person_id_fkey references t_person,
+    user_id               bigint not null constraint t_user_pkey primary key constraint t_user_user_id_fkey references t_person,
     username              varchar                  not null constraint unique_user_username unique,
     email                 varchar                  not null constraint unique_user_email unique,
     password              varchar                  not null,
@@ -140,7 +140,7 @@ create table t_user (
 );
 
 create table t_customer (
-    customer_id           bigint not null constraint t_customer_pkey primary key constraint t_customer_person_id_fkey references t_person,
+    customer_id           bigint not null constraint t_customer_pkey primary key constraint t_customer_customer_id_fkey references t_person,
     status                varchar                  not null,
     locale                varchar                  not null,
     created_date          timestamp with time zone not null,
@@ -148,7 +148,7 @@ create table t_customer (
 );
 
 create table t_supplier (
-    supplier_id           bigint not null constraint t_supplier_pkey primary key constraint t_supplier_person_id_fkey references t_person,
+    supplier_id           bigint not null constraint t_supplier_pkey primary key constraint t_supplier_supplier_id_fkey references t_person,
     name          varchar                                                        not null,
     webpage       varchar                                                        not null,
     status        varchar                                                        not null,
