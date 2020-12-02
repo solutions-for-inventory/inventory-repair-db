@@ -151,6 +151,7 @@ create table t_supplier (
     supplier_id           bigint not null constraint t_supplier_pkey primary key constraint t_supplier_person_id_fkey references t_person,
     name          varchar                                                        not null,
     webpage       varchar                                                        not null,
+    status        varchar                                                        not null,
     created_date  timestamp with time zone                                       not null,
     modified_date timestamp with time zone
 );
