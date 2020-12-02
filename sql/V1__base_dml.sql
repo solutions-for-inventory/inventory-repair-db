@@ -185,7 +185,7 @@ create table t_part_category (
     name          varchar                                                        not null,
     key           varchar,
     description   varchar                                                        not null,
-    parent_id bigint constraint t_part_category_part_category_id_fkey references t_part_category,
+    parent_id bigint constraint t_part_category_parent_id_fkey references t_part_category,
     created_date  timestamp with time zone                                       not null,
     modified_date timestamp with time zone
 );
@@ -211,7 +211,7 @@ create table t_unit (
 
 create table t_part (
     part_id       bigint default nextval('t_part_part_id_seq'::regclass) not null constraint t_part_pkey primary key,
-    part_number   varchar,
+    part_number   varchar                                                not null,
     name          varchar                                                not null,
     default_price double precision                                       not null,
     description   varchar,
@@ -220,7 +220,7 @@ create table t_part (
     model         varchar,
     notes         varchar,
     status        varchar                                                not null,
-    parent_part_id bigint constraint t_part_parent_part_id_fkey references t_part,
+    parent_id bigint constraint t_part_parent_id_fkey references t_part,
     part_category_id   bigint constraint t_part_part_category_id_fkey references t_part_category,
     unit_id       bigint constraint t_part_unit_id_fkey references t_unit,
     org_unit_id   bigint                                                 not null constraint t_part_org_unit_id_fkey references t_org_unit,
@@ -266,7 +266,7 @@ create table t_inventory_order (
     discount                double precision                                not null,
     sub_total_price         double precision                                not null,
     notes                   varchar                                         not null,
-    inventory_part_id       bigint                                          not null constraint t_inventory_part_order_inventory_part_id_fkey references t_inventory_part,
+    inventory_part_id       bigint                                          not null constraint t_inventory_order_inventory_part_id_fkey references t_inventory_part,
     order_id                 bigint                                          not null constraint t_inventory_part_order_order_id_fkey references t_order,
     created_date            timestamp with time zone                        not null,
     modified_date           timestamp with time zone
@@ -306,7 +306,7 @@ create table t_sale (
 );
 
 create table t_sale_detail (
-    t_sale_detail_id bigint default nextval('t_sale_detail_sale_detail_id_seq'::regclass) not null constraint t_sale_detail_pkey primary key,
+    sale_detail_id bigint default nextval('t_sale_detail_sale_detail_id_seq'::regclass) not null constraint t_sale_detail_pkey primary key,
     quantity                bigint                                          not null,
     price                   double precision                                not null,
     discount                double precision                                not null,
