@@ -267,7 +267,7 @@ create table t_inventory_order (
     sub_total_price         double precision                                not null,
     notes                   varchar                                         not null,
     inventory_part_id       bigint                                          not null constraint t_inventory_order_inventory_part_id_fkey references t_inventory_part,
-    order_id                 bigint                                          not null constraint t_inventory_part_order_order_id_fkey references t_order,
+    order_id                 bigint                                          not null constraint t_inventory_order_order_id_fkey references t_order,
     created_date            timestamp with time zone                        not null,
     modified_date           timestamp with time zone
 );
