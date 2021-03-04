@@ -29,7 +29,7 @@ pipeline {
             steps {
                 echo 'Starting to build docker image'
                 script {
-                    def customImage = docker.build("inventory-repair-login:1.0 --network=host")
+                    def customImage = docker.build("inventory/repair-db:1.0")
                 }
             }
         }
