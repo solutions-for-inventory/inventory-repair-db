@@ -4,6 +4,7 @@ pipeline {
         PATH = "/usr/local/bin:$PATH"
     }
     stages {
+        /*
         stage ('Create Data Base') {
                 when {
                     expression {
@@ -21,6 +22,15 @@ pipeline {
                 echo 'Deploying....'
                 sh 'docker start $(docker ps -aqf ancestor=inventory-repair-db:1.0)'
                 sh 'docker run --rm -v $PWD/sql:/flyway/sql -v $PWD/conf:/flyway/conf -v $PWD/jars:/flyway/jars flyway/flyway:7.2.1 migrate'
+            }
+        }
+        */
+        stage('DockerBuildImage') {
+            steps {
+                echo 'Starting to build docker image'
+                script {
+                    def customImage = docker.build("inventory-repair-login:1.0 --network=host")
+                }
             }
         }
     }
