@@ -1,5 +1,13 @@
 # Database
 
+###Dockerfile
+```
+FROM postgres:11.7
+ENV POSTGRES_USER inventory_user
+ENV POSTGRES_PASSWORD inventory_password
+ENV POSTGRES_DB inventory_repair_db 
+```
+
 ###Build docker image
 ```
 $ cd inventory-repair-db
